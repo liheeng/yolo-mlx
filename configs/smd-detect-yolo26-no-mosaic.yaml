@@ -1,0 +1,24 @@
+path: /Volumes/media-backup/AI-data/pcb_detection/smd-component-detection.v13i.yolo26
+train: images/train
+val: images/valid
+test: images/test
+
+nc: 8
+names: ['CAPACITOR', 'DIODE', 'EC', 'IC', 'LED', 'RESISTOR', 'SCAPACITOR', 'ZENER']
+
+# ========== 方案A 超参 ==========
+mosaic: 0.0
+mixup: 0.0
+copy_paste: 0.0
+lr0: 0.001
+lrf: 1.0
+warmup_epochs: 3
+seed: 42
+
+
+roboflow:
+  workspace: marco-filippozzi-siwjn
+  project: smd-component-detection
+  version: 13
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/marco-filippozzi-siwjn/smd-component-detection/dataset/13

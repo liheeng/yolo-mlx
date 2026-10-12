@@ -8,10 +8,10 @@ build/
 *.egg
 
 # Virtual environments
+.conda/
 .venv/
 venv/
 env/
-
 # NOTE: leading-slash anchors below are intentional. Without them, plain
 # patterns like "datasets/" / "models/" / "images/" silently match
 # "src/yolo26mlx/cfg/datasets/", "src/yolo26mlx/cfg/models/" and any

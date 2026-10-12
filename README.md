@@ -6,11 +6,28 @@
 [![Apple Silicon](https://img.shields.io/badge/Apple_Silicon-M1%2FM2%2FM3%2FM4-000000.svg?logo=apple)](https://support.apple.com/en-us/116943)
 [![CI](https://github.com/thewebAI/yolo-mlx/actions/workflows/ci.yml/badge.svg)](https://github.com/thewebAI/yolo-mlx/actions/workflows/ci.yml)
 
+
+
+>[!tip] Note by Henry
+> Forked this project for learning
+> I added a few examples to run train/predict on my M5Max 
+> [YOLO26\-MLX 在 Apple Silicon Mac 上跑通指南](./YOLO26\-MLX 在 Apple Silicon Mac 上跑通指南.md)
+
+
 Pure [MLX](https://github.com/ml-explore/mlx) implementation of YOLO26 for Apple Silicon. No PyTorch dependency at runtime.
+
+
+
+
+
+
+
+
 
 YOLO26 is the latest generation of the [YOLO](https://docs.ultralytics.com/models/yolo26/) real-time object detection family by [Ultralytics](https://github.com/ultralytics/ultralytics), featuring NMS-free end-to-end detection and simplified DFL-free box regression. This project re-implements the full inference and training pipeline in Apple's [MLX](https://github.com/ml-explore/mlx) framework for native Metal GPU acceleration on Apple Silicon.
 
 ## Table of Contents
+
 
 - [Highlights](#highlights)
 - [Validation Results](#validation-results-coco-val2017-5000-images)
