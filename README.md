@@ -12,7 +12,7 @@
 > Note by Henry
 > Forked this project for learning
 > I added a few examples to run train/predict on my M5Max
-> [YOLO26-MLX 在 Apple Silicon Mac 上跑通指南](./YOLO26-MLX 在 Apple Silicon Mac 上跑通指南.md)
+> [YOLO26-MLX 在 Apple Silicon Mac 上跑通指南](<YOLO26-MLX 在 Apple Silicon Mac 上跑通指南.md>)
 
 
 
