@@ -8,10 +8,12 @@
 
 
 
->[!tip] Note by Henry
+> [!TIP]
+> Note by Henry
 > Forked this project for learning
-> I added a few examples to run train/predict on my M5Max 
-> [YOLO26\-MLX 在 Apple Silicon Mac 上跑通指南](./YOLO26\-MLX 在 Apple Silicon Mac 上跑通指南.md)
+> I added a few examples to run train/predict on my M5Max
+> [YOLO26-MLX 在 Apple Silicon Mac 上跑通指南](./YOLO26-MLX 在 Apple Silicon Mac 上跑通指南.md)
+
 
 
 Pure [MLX](https://github.com/ml-explore/mlx) implementation of YOLO26 for Apple Silicon. No PyTorch dependency at runtime.
