@@ -1,6 +1,6 @@
 # YOLO26\-MLX 在 Apple Silicon Mac 上跑通指南
 
-**一句话路径：**创建 Conda 环境安装 MLX → 准备 YOLO 格式数据集并写好 data\.yaml → 加载 yolo26n\.npz 启动训练 → 加载 best\.safetensors 并手动覆盖 model\.names 后推理。
+**一句话路径：** 创建 Conda 环境安装 MLX → 准备 YOLO 格式数据集并写好 data\.yaml → 加载 yolo26n\.npz 启动训练 → 加载 best\.safetensors 并手动覆盖 model\.names 后推理。
 
 本文基于 yolo26\-mlx（纯 MLX 实现的 YOLO26）实操整理，覆盖检测 / 姿态任务，全部命令与脚本在 M 系列芯片上验证过。
 
@@ -61,7 +61,7 @@ datasets/
 
 ## 2\.2 data\.yaml 配置
 
-**关键坑：**yolo26mlx 的 `model.train()` **不接受** `mosaic / mixup / seed / lrf` 等关键字参数，必须写在 data\.yaml 里，否则报 `TypeError: unexpected keyword argument`。
+**关键坑：** yolo26mlx 的 `model.train()` **不接受** `mosaic / mixup / seed / lrf` 等关键字参数，必须写在 data\.yaml 里，否则报 `TypeError: unexpected keyword argument`。
 
 ```yaml
 # 任务与类别
@@ -172,11 +172,11 @@ self.optimizer.learning_rate = lf
 
 ## 4\.1 最关键的坑：类别名必须手动覆盖
 
-**症状：**加载 best\.safetensors 后，预测标签全部是 person / car / bus 等 COCO 类别，而不是你的 PCB 元器件。
+**症状：** 加载 best\.safetensors 后，预测标签全部是 person / car / bus 等 COCO 类别，而不是你的 PCB 元器件。
 
-**原因：**`YOLO("xxx.safetensors")` 只加载网络权重张量，**不写入类别名称表**，model\.names 仍是默认 COCO 80 类。
+**原因：**` YOLO("xxx.safetensors")` 只加载网络权重张量，**不写入类别名称表**，model\.names 仍是默认 COCO 80 类。
 
-**解决：**加载后从训练目录的 args\.yaml 读取 names 并覆盖 model\.names。
+**解决：** 加载后从训练目录的 args\.yaml 读取 names 并覆盖 model\.names。
 
 ## 4\.2 完整推理脚本
 
@@ -377,9 +377,9 @@ python examples/train_smd.py
 |最佳 epoch 均值|每组取平均|A 更早收敛 = Mosaic 延缓收敛|
 |后 10 epoch mAP 波动幅度|最大值减最小值|A 波动小 = Mosaic 造成验证集震荡|
 
-**结论对应：**mAP 小幅下降但波动明显变小，说明 Mosaic 有增益但引入不稳定性；mAP 基本不变且波动显著变小，说明 Mosaic 纯噪声可永久关闭；mAP 反而更高且波动更小，说明 Mosaic 破坏了 PCB 小元件标注一致性；两组差异很小，说明波动另有来源（one2many 分支等）。
+**结论对应：** mAP 小幅下降但波动明显变小，说明 Mosaic 有增益但引入不稳定性；mAP 基本不变且波动显著变小，说明 Mosaic 纯噪声可永久关闭；mAP 反而更高且波动更小，说明 Mosaic 破坏了 PCB 小元件标注一致性；两组差异很小，说明波动另有来源（one2many 分支等）。
 
-**补丁说明：**MLX 内存环境变量、`mx.disable_compile()`、推理时手动覆盖 `model.names` 属于环境稳定性补丁，不属于消融变量，基线与实验 A 两组必须同时启用，否则对比无效。
+**补丁说明：** MLX 内存环境变量、`mx.disable_compile()`、推理时手动覆盖 `model.names` 属于环境稳定性补丁，不属于消融变量，基线与实验 A 两组必须同时启用，否则对比无效。
 
 # 7\. 本地源码修改记录（复现必看）
 
@@ -401,7 +401,7 @@ print(f"[DEBUG] Mosaic enabled: {self.mosaic}")
 
 ## 7\.2 实验 B 专用：loss\.py 关闭 one2many 分支
 
-**实验 A 不需要改这一段！**这是后面消融实验 B 才要改的代码，提前列出来防止混淆。
+**实验 A 不需要改这一段！** 这是后面消融实验 B 才要改的代码，提前列出来防止混淆。
 
 文件：`yolo26mlx/utils/loss.py`。找到 `E2ELoss` 里同时计算 one2one 与 one2many 两个分支 loss 的位置：
 
@@ -459,9 +459,9 @@ git tag exp_A_baseline
 
 # 9\. 消融实验 B（预留）：关闭 one2many 分支
 
-**实验目的：**验证 one2many 多匹配分支是否是验证集指标震荡的根源。
+**实验目的：** 验证 one2many 多匹配分支是否是验证集指标震荡的根源。
 
-**实验设计：**在实验 A（mosaic=0）的基础上，只改一个变量——是否回传 one2many 分支 loss。
+**实验设计：** 在实验 A（mosaic=0）的基础上，只改一个变量——是否回传 one2many 分支 loss。
 
 ## 9\.1 变量定义
 
@@ -481,7 +481,7 @@ git tag exp_A_baseline
 
 4. 训练结束后用 `git checkout` 还原 loss\.py，避免污染后续实验。
 
-**注意：**实验 B 的 yaml 增强参数、训练脚本、MLX 环境变量全部沿用实验 A 配置，保证单变量只在 one2many loss。每次跑完用 git 还原源码。
+**注意：** 实验 B 的 yaml 增强参数、训练脚本、MLX 环境变量全部沿用实验 A 配置，保证单变量只在 one2many loss。每次跑完用 git 还原源码。
 
 # 10\. 关键检查清单（复现实验前核对）
 
@@ -507,4 +507,3 @@ git tag exp_A_baseline
 
 * [ ] 实验 B 跑完后已 git checkout 还原 loss\.py，避免污染后续实验
 
-> （注：部分内容由豆包工作 AI 生成）
