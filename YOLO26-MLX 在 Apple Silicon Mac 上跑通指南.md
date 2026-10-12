@@ -1,6 +1,6 @@
 # YOLO26\-MLX 在 Apple Silicon Mac 上跑通指南
 
-> [!INFO]
+> [!NOTE]
 >  [包含例子的yolo-mlx 项目地址](https://github.com/liheeng/yolo-mlx)
 
 **一句话路径：** 创建 Conda 环境安装 MLX → 准备 YOLO 格式数据集并写好 data\.yaml → 加载 yolo26n\.npz 启动训练 → 加载 best\.safetensors 并手动覆盖 model\.names 后推理。
